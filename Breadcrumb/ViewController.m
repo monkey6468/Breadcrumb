@@ -63,6 +63,9 @@
             xOffset += 20;
         }
     }
+
+    //    self.breadcrumbView.contentSize = CGSizeMake(xOffset, 40);
+    //    self.tableView.tableHeaderView = self.navigationStack.count > 1 ? self.breadcrumbView : nil;
 }
 
 - (NSArray<NSString *> *)fetchDataForPath:(NSArray<NSString *> *)path {
@@ -85,10 +88,10 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataArray.count;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -99,7 +102,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
 
-    cell.textLabel.text = self.dataArray[indexPath.section];
+    cell.textLabel.text = self.dataArray[indexPath.row];
     return cell;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -117,7 +120,7 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *selectedItem = self.dataArray[indexPath.section];
+    NSString *selectedItem = self.dataArray[indexPath.row];
     [self.navigationStack addObject:selectedItem];
     self.dataArray = [self fetchDataForPath:self.navigationStack];
     [self updateBreadcrumbView];
