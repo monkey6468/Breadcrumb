@@ -63,9 +63,13 @@
             xOffset += 20;
         }
     }
+    
+    self.breadcrumbView.contentSize = CGSizeMake(xOffset, 40);
+    // 滚动到最后一个元素
+    if (xOffset > self.breadcrumbView.frame.size.width) {
+        [self.breadcrumbView setContentOffset:CGPointMake(xOffset - self.breadcrumbView.frame.size.width, 0) animated:YES];
+    }
 
-    //    self.breadcrumbView.contentSize = CGSizeMake(xOffset, 40);
-    //    self.tableView.tableHeaderView = self.navigationStack.count > 1 ? self.breadcrumbView : nil;
 }
 
 - (NSArray<NSString *> *)fetchDataForPath:(NSArray<NSString *> *)path {
